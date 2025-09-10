@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Teks Bebas — Background Keren</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #0f172a; /* navy-ish */
+      --bg2: #071129; /* deep blue */
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.06);
+      --accent: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.09);
+    }
+    *{box-sizing:border-box}
+    html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color:#e6eef8;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(99,102,241,0.12), transparent 6%),
+              radial-gradient(900px 500px at 90% 80%, rgba(16,185,129,0.06), transparent 8%),
+              linear-gradient(180deg,var(--bg1),var(--bg2));
+  padding: 40px 20px;
+}
+
+
+    .wrapper{
+      width:100%;
+      max-width:920px;
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Card for main text */
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;
+      padding:28px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+
+    h1{margin:0 0 8px 0;font-size:22px;font-weight:700;letter-spacing:-0.2px}
+    p.lead{margin:0 0 18px 0;color:rgba(230,238,248,0.8)}
+
+    .editable{
+      min-height:360px;
+      outline:none;
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      border:1px dashed rgba(255,255,255,0.04);
+      line-height:1.6;
+    }
+
+    .sidebar{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .meta{
+      padding:18px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      font-size:14px;
+      cursor:pointer;
+      user-select:none;
+      border:1px solid rgba(255,255,255,0.06);
+      background:transparent;
+    }
+
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+
+    .hint{font-size:13px;color:rgba(230,238,248,0.7);}
+
+    footer{margin-top:18px;font-size:12px;color:rgba(230,238,248,0.55)}
+
+    /* responsive */
+    @media (max-width:920px){
+      .wrapper{grid-template-columns:1fr;}
+      .sidebar{order:2}
+    }
+
+    /* subtle floating shapes */
+    .float-shape{
+      position:fixed;z-index:0;opacity:0.12;filter:blur(22px);pointer-events:none;
+    }
+    .shape-1{top:6%;left:4%;width:360px;height:220px;background:linear-gradient(90deg,#6366f1,#06b6d4);border-radius:40px}
+    .shape-2{bottom:10%;right:6%;width:300px;height:180px;background:linear-gradient(90deg,#06b6d4,#059669);border-radius:36px}
+  </style>
+</head>
+<body>
+  <div class="float-shape shape-1"></div>
+  <div class="float-shape shape-2"></div>
+
+  <main class="wrapper" role="main">
+    <section class="card" aria-labelledby="judul">
+
+      <div id="area" class="editable" contenteditable="true" spellcheck="true">
+        <h2>Harga Ress - Pt Prib</h2>
+        <p>JANGAN MENURUN KAN HARGA SEENAKNYA SENDIRI NO NEGO</p>
+        <body>
+          <li>RESSELER 10K</li>
+          <li>ADMIN 25K</li>
+          <li>OWNER 35K</li>
+          <li>PT BIASA 45K</li>
+          <li>PT KIRI 65K</li>
+          <li>PT KANAN 85K</li>
+          <li>PT PRIB 120K</li>
+        </body>
+        <p>JIKA MENURUNKAN HARGA SEENAKNYA ADMIN KIK</p>
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="meta">
+        <strong>Pengaturan Thema</strong>
+        <p class="hint">Ubah warna Backgroun</p>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn" data-template="dark">Dark</button>
+          <button class="btn" data-template="mint">Mint</button>
+          <button class="btn" data-template="sunset">Sunset</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    // Ambil elemen
+    const area = document.getElementById('area');
+    const copyBtn = document.getElementById('copy');
+    const dlBtn = document.getElementById('download');
+    const templateBtns = document.querySelectorAll('[data-template]');
+
+    function buildFullHtml(){
+      // ambil konten editable dan bungkus dengan head yang sama
+      const content = area.innerHTML;
+      const html = `<!doctype html>\n<html lang="id">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n<title>Teks Bebas — Disimpan</title>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap\" rel=\"stylesheet\">\n<style>body{font-family:'Inter',system-ui, -apple-system, 'Segoe UI', Roboto; padding:28px;background:linear-gradient(180deg,#071129,#0f172a);color:#eef;}</style>\n</head>\n<body>\n${content}\n</body>\n</html>`;
+      return html;
+    }
+
+    copyBtn.addEventListener('click', async()=>{
+      const html = buildFullHtml();
+      try{
+        await navigator.clipboard.writeText(html);
+        copyBtn.textContent = 'Tersalin!';
+        setTimeout(()=> copyBtn.textContent = 'Salin HTML',1200);
+      }catch(e){
+        alert('Gagal menyalin — coba gunakan browser modern atau salin manual.');
+      }
+    });
+
+    dlBtn.addEventListener('click', ()=>{
+      const blob = new Blob([buildFullHtml()], {type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'teks-bebas.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      dlBtn.textContent = 'Diunduh!';
+      setTimeout(()=> dlBtn.textContent = 'Download HTML',1200);
+    });
+
+    templateBtns.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const t = btn.dataset.template;
+        if(t==='dark') document.body.style.background = 'linear-gradient(180deg,#071129,#0f172a)';
+        if(t==='mint') document.body.style.background = 'radial-gradient(800px 300px at 10% 10%, rgba(6,182,212,0.08), transparent), linear-gradient(180deg,#052f2f,#06292b)';
+        if(t==='sunset') document.body.style.background = 'radial-gradient(700px 300px at 10% 10%, rgba(236,72,153,0.06), transparent), linear-gradient(180deg,#2b0f2f,#16081a)';
+      });
+    });
+
+    // small UX: preserve cursor position when clicking buttons
+    document.querySelectorAll('.btn').forEach(b=>b.addEventListener('mousedown', e => e.preventDefault()));
+  </script>
+</body>
+</html>
